@@ -5,26 +5,19 @@ class SetModel(db.Model):
     
     set_id = db.Column(db.Integer, primary_key=True)
     set_name = db.Column(db.String(32))
-    brand = db.Column(db.String(32))
     description = db.Column(db.String(128))
    
-    def __init__(self, name, brand, description):
+    def __init__(self, name, description):
         self.set_name = name
-        self.brand = brand
         self.description = description
         
     def json(self):
         return {
             'id': self.set_id,
             'set_name': self.set_name,
-            'brand': self.brand,
             'description': self.description
         }
         
-    @classmethod
-    def find_by_brand(cls, brand):
-        return cls.query.filter_by(brand=brand).first()
-    
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(set_id=_id).first()
