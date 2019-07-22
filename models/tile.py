@@ -30,6 +30,10 @@ class TileModels(db.Model):
     @classmethod
     def find_by_set(cls, set_id):
         return cls.query.filter_by(set_id=set_id)
+    
+    @classmethod
+    def find_by_set_name_size_height(cls, set_id, name, size, height):
+        return cls.query.filter_by(set_id=set_id).filter_by(name=name).filter_by(size=size).filter_by(height=height)
         
     def save_to_db(self):
         db.session.add(self)
