@@ -29,21 +29,6 @@ class Tile(Resource):
                         help="Every tile needs a set id."
     )
     
-    def post(self):
-        data = self.parser.parse_args()
-        
-        if TileModel.find_by_set_name_size_height(data['set_id'], data['name'], data['size'], data['height'])
-            return {'message' 'That tile already exists'}, 400
-            
-        tile = TileModel(**data)
-        
-        try:
-            tile.save_to_db()
-        except:
-            return {'message': 'An error occurred while creating that tile'}, 500
-        
-        return tile.json(), 201
-        
     def get(self, tile_id):
         tile = TileModel.find_by_id(tile_id):
         
@@ -76,6 +61,23 @@ class Tile(Resource):
         
         return {'message': 'Tile not found'}, 404
         
+
+class NewTile(Resource):
+    def post(self):
+        data = Tile.parser.parse_args()
+        
+        if TileModel.find_by_set_name_size_height(data['set_id'], data['name'], data['size'], data['height'])
+            return {'message' 'That tile already exists'}, 400
+            
+        tile = TileModel(**data)
+        
+        try:
+            tile.save_to_db()
+        except:
+            return {'message': 'An error occurred while creating that tile'}, 500
+        
+        return tile.json(), 201
+
         
 class TileList(Resource):
     def get(self):
