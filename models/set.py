@@ -1,6 +1,8 @@
 from db import db
 
 class SetModel(db.Model):
+    __tablename__ = 'sets'
+    
     set_id = db.Column(db.Integer, primary_key=True)
     set_name = db.Column(db.String(32))
     brand = db.Column(db.String(32))
