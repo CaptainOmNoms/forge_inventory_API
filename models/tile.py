@@ -28,6 +28,10 @@ class TileModels(db.Model):
         }
     
     @classmethod
+    def find_by_id(cls, tile_id):
+        return cls.query.filter_by(tile_id=tile_id)
+    
+    @classmethod
     def find_by_set(cls, set_id):
         return cls.query.filter_by(set_id=set_id)
     
