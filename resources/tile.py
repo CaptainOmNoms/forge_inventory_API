@@ -23,14 +23,14 @@ class Tile(Resource):
                         required=True,
                         help="How many do you have?"
     )
-    parser.add_argument('set_id',
-                        type=int,
+    parser.add_argument('set_name',
+                        type=str,
                         required=True,
-                        help="Every tile needs a set id."
+                        help="Every tile belongs to a set."
     )
     
     def get(self, tile_id):
-        tile = TileModel.find_by_id(tile_id):
+        tile = TileModel.find_by_id(tile_id)
         
         if tile:
             return tile.json()
@@ -47,7 +47,7 @@ class Tile(Resource):
             tile.height = data['height']
             tile.quantity = data['quantity']
         else:
-            tile = TileModel(name, **data)
+            tile = TileModel(**data)
         
         tile.save_to_db()
         return tile.json()
@@ -66,8 +66,8 @@ class NewTile(Resource):
     def post(self):
         data = Tile.parser.parse_args()
         
-        if TileModel.find_by_set_name_size_height(data['set_id'], data['name'], data['size'], data['height'])
-            return {'message' 'That tile already exists'}, 400
+        if TileModel.find_by_set_name_size_height(data['set_name'], data['name'], data['size'], data['height']):
+            return {'message': 'That tile already exists'}, 400
             
         tile = TileModel(**data)
         
@@ -81,11 +81,11 @@ class NewTile(Resource):
         
 class TileList(Resource):
     def get(self):
-        return {'tiles': [tile.json() for x in SetModel.query.all()]}
+        return {'tiles': [tile.json() for tile in TileModel.query.all()]}
         
        
 class TileSet(Resource):
-    def get(self, set_id):
-        return {'tiles': [tile.json() for x in SetModel.find_by_set(set_id)]}
+    def get(self, set_name):
+        return {'tiles': [tile.json() for tile in TileModel.find_by_set(set_name)]}
         
          

@@ -1,4 +1,4 @@
-import flas_restful import Resource, reqparse
+from  flask_restful import Resource, reqparse
 from models.set import SetModel
 
 class Set(Resource):

@@ -13,7 +13,7 @@ class SetModel(db.Model):
         
     def json(self):
         return {
-            'id': self.set_id,
+            'set_id': self.set_id,
             'set_name': self.set_name,
             'description': self.description
         }
@@ -21,7 +21,11 @@ class SetModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(set_id=_id).first()
-        
+
+    @classmethod
+    def find_by_name(cls, name):
+        return cls.query.filter_by(set_name=name).first()
+
     @classmethod
     def find_all(cls):
         return cls.query.all()
