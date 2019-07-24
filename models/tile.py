@@ -18,7 +18,7 @@ class TileModel(db.Model):
         self.height = height
         self.quantity = quantity
         self.set_name = set_name
-        
+
     def json(self):
         return {
             'tile_id': self.tile_id,
@@ -28,19 +28,19 @@ class TileModel(db.Model):
             'qty': self.quantity,
             'set': self.set_name
         }
-    
+
     @classmethod
     def find_by_id(cls, tile_id):
         return cls.query.filter_by(tile_id=tile_id).first()
-    
+
     @classmethod
     def find_by_set(cls, set_name):
         return cls.query.filter_by(set_name=set_name).all()
-    
+
     @classmethod
     def find_by_set_name_size_height(cls, set_name, name, size, height):
         return cls.query.filter_by(set_name=set_name).filter_by(name=name).filter_by(size=size).filter_by(height=height).first()
-        
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
