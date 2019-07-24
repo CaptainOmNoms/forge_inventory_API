@@ -4,7 +4,7 @@ class SetModel(db.Model):
     __tablename__ = 'sets'
     __table_args__ = (db.UniqueConstraint('set_name', name='unique_name_commit'),)
 
-    set_id = db.Column(db.Integer, primary_key=True)
+    set_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     set_name = db.Column(db.String(32), primary_key=True)
     description = db.Column(db.String(128))
    
