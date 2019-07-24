@@ -4,7 +4,7 @@ class SetModel(db.Model):
     __tablename__ = 'sets'
     
     set_id = db.Column(db.Integer, primary_key=True)
-    set_name = db.Column(db.String(32))
+    set_name = db.Column(db.String(32), primary_key=True)
     description = db.Column(db.String(128))
    
     def __init__(self, name, description):
