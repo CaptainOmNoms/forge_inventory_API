@@ -2,7 +2,7 @@ from db import db
 
 class SetModel(db.Model):
     __tablename__ = 'sets'
-    __table_args__ = db.UniqueConstraint('set_name', name='unique_name_commit')
+    __table_args__ = (db.UniqueConstraint('set_name', name='unique_name_commit'),)
 
     set_id = db.Column(db.Integer, primary_key=True)
     set_name = db.Column(db.String(32), primary_key=True)
